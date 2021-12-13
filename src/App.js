@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
+import moment from "moment";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { useAuth } from "./Contexts/Auth";
+import { IS_LOGGED_IN } from "./Queries/User";
+
+import { FirstLoading } from "./Components/Loading";
+import Layout from "./Pages/Layout";
+import Credentials from "./Pages/Credentials";
+
+const App = () => {
+  const { data } = useQuery(IS_LOGGED_IN);
+  const { checkAuth } = useAuth();
+  const [ isLoaded, setLoad ] = useState(false);
+
+  useEffect(() => {
+    moment.locale("en-gb");
+    checkAuth();
+    setTimeout(() => {
+      setLoad(true);
+    }, 2000);
+  // eslint-disable-next-line
+  }, []);
+
+  if(!isLoaded) {
+    return <FirstLoading />
+  } else {
+    return data && data.isLoggedIn ? <Layout /> : <Credentials />
+  }
 }
 
 export default App;
