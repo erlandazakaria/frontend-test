@@ -95,6 +95,11 @@ const Login = () => {
             onClick={handleSubmit(onLogin)}
           >Login</Button>
         </Box>
+        
+        <Box className="flex-column" marginTop={4}>
+          <Typography variant="body2">Guest User: guest@a.com</Typography>
+          <Typography variant="body2">Guest Pass: guest123</Typography>
+        </Box>
       </Grid>
     </Container>
   );

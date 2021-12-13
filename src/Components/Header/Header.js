@@ -46,7 +46,7 @@ const Header = () => {
         >
           Glint Test
         </Typography>
-        <IconButton onClick={() => logout()}>
+        <IconButton onClick={() => {logout(); history.push("/")}}>
           <ExitToAppIcon style={{color: "white"}} />
         </IconButton>
       </Toolbar>
